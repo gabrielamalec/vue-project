@@ -1,47 +1,51 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import ButtonItem from './components/ButtonItem.vue'
+import ImageBeach from './components/ImageBeach.vue'
+import SectionImages from './components/SectionImages.vue'
+import HeaderTitle from './components/HeaderTitle.vue'
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
+    <HeaderTitle>LOGO TEXT</HeaderTitle>
+    <ul class="list_buttons">
+      <ButtonItem>button 1</ButtonItem>
+      <ButtonItem>button 2</ButtonItem>
+      <ButtonItem class="ul__li--button3">button 3</ButtonItem>
+    </ul>
   </header>
 
   <main>
-    <TheWelcome />
+    <SectionImages>
+      <ImageBeach class="cent-1"></ImageBeach>
+      <ImageBeach class="cent-2"></ImageBeach>
+    </SectionImages>
   </main>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<style>
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
+  .list_buttons {
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+    justify-content: space-around;
+    padding: 10px 17px 10px 10px;
+    }
+
+    .ul__li--button3 {
+        align-self: flex-start;
+        padding-bottom: 10px;
+    }
+
+  @media (min-width: 720px) {
+      .ul__li--button3 {
+          padding-right: 0;
+      }
+      .cent-1 {
+            padding-right: 12px;
+        }
+      .cent-2 {
+            padding-left: 12px;
+        }
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
