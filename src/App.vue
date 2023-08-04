@@ -9,9 +9,9 @@ import HeaderTitle from './components/HeaderTitle.vue'
   <header>
     <HeaderTitle>LOGO TEXT</HeaderTitle>
     <ul class="list_buttons">
-      <ButtonItem>button 1</ButtonItem>
-      <ButtonItem>button 2</ButtonItem>
-      <ButtonItem class="ul__li--button3">button 3</ButtonItem>
+      <li class="ul__li"><ButtonItem>button 1</ButtonItem></li>
+      <li class="ul__li"><ButtonItem>button 2</ButtonItem></li>
+      <li class="ul__li"><ButtonItem class="ul__li--button3">button 3</ButtonItem></li>
     </ul>
   </header>
 
@@ -24,6 +24,10 @@ import HeaderTitle from './components/HeaderTitle.vue'
 </template>
 
 <style>
+  .ul__li {
+        list-style: none;
+        align-self: flex-end;
+    }
 
   .list_buttons {
     display: flex;
@@ -40,12 +44,6 @@ import HeaderTitle from './components/HeaderTitle.vue'
       .ul__li--button3 {
           padding-right: 0;
       }
-      .cent-1 {
-            padding-right: 12px;
-        }
-      .cent-2 {
-            padding-left: 12px;
-        }
   }
 
 </style>

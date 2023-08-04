@@ -1,5 +1,5 @@
 <template>
-    <div class="cent"><img src="src/assets/img-one-small.jpg" alt="sea, beach" class="pic circle bord-black"></div>
+    <div class="cent"><img src="src/assets/img-one-small.jpg" alt="sea, beach" class="pic circle"></div>
 </template>
 
 <style scoped>
@@ -9,9 +9,6 @@
     }
     .circle {
         border-radius: 50% ;
-    }
-    .bord-black {
-        border: 2px solid black;
     }
     .pic {
         margin: 10px;

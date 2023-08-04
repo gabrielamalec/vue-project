@@ -1,5 +1,5 @@
 <template>
-    <section class="sect-1 back-light shadow"><slot></slot></section>
+    <section class="sect-1 back-light shadow"><slot /></section>
 </template>
 
 <style scoped>

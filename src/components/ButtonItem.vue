@@ -1,5 +1,5 @@
 <template>
-    <li class="ul__li"><button class="ul__li__button" type="button"><slot></slot></button></li>
+    <li class="ul__li"><button class="ul__li__button" type="button"><slot /></button></li>
 </template>
 
 <style scoped>
