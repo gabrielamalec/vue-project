@@ -40,7 +40,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #555;
+            background-color:rgba(0,0,0,0);
             border: 0;  
         }
     }
@@ -68,9 +68,6 @@
                 transition: 0.3s;
             }
 
-            &--wrapper {
-                background-color: #dedede;
-            }
     }
 
         & .hamburger-posit {

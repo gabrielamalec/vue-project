@@ -55,9 +55,8 @@
 
 
 <style lang="scss" scoped>
-
   .ul__li {
-          align-self: flex-end;
+        align-self: flex-end;
       }
 
   .side__li {

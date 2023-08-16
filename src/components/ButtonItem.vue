@@ -1,12 +1,8 @@
 <template>
-    <li class="ul__li"><button class="ul__li__button" type="button"><slot /></button></li>
+    <button class="ul__li__button" type="button"><slot /></button>
 </template>
 
 <style scoped>
-    .ul__li {
-        list-style: none;
-        align-self: flex-end;
-    }
     .ul__li__button {
         min-width: 80px;
         min-height: 44px;
@@ -17,10 +13,4 @@
         border: none;
     }
     
-  @media (min-width: 720px) {
-      .ul__li {
-          padding-right: 20px;
-      }
-  }
-
 </style>
