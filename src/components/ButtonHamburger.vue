@@ -1,6 +1,6 @@
 <template>
     <button type="button" class="btn--hamburger--wrapper">
-        <div class="btn--hamburger" />
+        <span class="btn--hamburger" />
     </button>
 </template>
 

@@ -3,7 +3,8 @@
 import ImageBeach from './components/ImageBeach.vue'
 import SectionImages from './components/SectionImages.vue'
 import HeaderTitle from './components/HeaderTitle.vue'
-import NavigationMenu from './components/NavigationMenu.vue';
+import NavigationMenu from './components/NavigationMenu.vue'
+import AdImage from './components/AdImage.vue'
 </script>
 
 <template>
@@ -18,6 +19,7 @@ import NavigationMenu from './components/NavigationMenu.vue';
       <ImageBeach class="cent-2"></ImageBeach>
     </SectionImages>
   </main>
+  <AdImage />
 </template>
 
 <style>

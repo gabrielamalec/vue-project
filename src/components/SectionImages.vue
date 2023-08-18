@@ -18,7 +18,15 @@
             margin: 0 auto;
             display: flex;
             justify-content: center;
-            width: 576px;
+            width: 60vw;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .sect-1 {
+            margin: 20px 0 0 150px ;
+            padding-bottom: 50vh;
+            width: 42vw;
         }
     }
 </style>

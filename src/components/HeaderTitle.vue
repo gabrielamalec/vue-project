@@ -30,4 +30,26 @@
       }
     }
 
+    @media (min-width: 1200px) {
+      header {
+          margin: 0;
+          flex-direction: column;
+          align-items: center;
+          width: auto;
+          height: 100vh;
+          position: fixed;
+          left: 0;
+      }
+      
+      h1 {
+          writing-mode: vertical-rl;
+          text-orientation: upright;
+          letter-spacing: -8px;
+      }
+
+      .header__title {
+          padding: 10px 0; 
+      }
+}
+
 </style>
