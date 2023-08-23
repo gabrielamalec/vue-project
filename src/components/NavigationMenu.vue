@@ -2,8 +2,7 @@
   import ButtonItem from './ButtonItem.vue'
   import ButtonHamburger from './ButtonHamburger.vue'
 
-
-  import { onMounted, ref, inject } from 'vue';
+  import { onMounted, ref } from 'vue';
 
   const mobile = ref(null);
   const mobileNav = ref(null);
@@ -28,18 +27,13 @@
     checkWidth();
   });
 
-  // const showImage = inject('showImage');
-
-  // const toggleImageVisibility = () => {
-  //     showImage.value = !showImage.value;
-  //   };
-
+  const emit = defineEmits(['adToggle'])
 
   </script>
 
 <template>
     <ul v-show="!mobile" class="main_menu">
-      <li class="ul__li"><ButtonItem @click="toggleImageVisibility">button 1</ButtonItem></li>
+      <li class="ul__li"><ButtonItem @click="emit('adToggle')">button 1</ButtonItem></li>
       <li class="ul__li"><ButtonItem>button 2</ButtonItem></li>
       <li class="ul__li ul__li--button3"><ButtonItem>button 3</ButtonItem></li>
     </ul>
