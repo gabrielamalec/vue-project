@@ -1,35 +1,50 @@
 <script setup>
   import ButtonItem from './ButtonItem.vue'
   import ButtonHamburger from './ButtonHamburger.vue'
-
-  import { onMounted, ref } from 'vue';
-
-  const mobile = ref(null);
-  const mobileNav = ref(null);
-  const windowWidth = ref(null);
-
-  const toggleMobileNav = () => {
-    mobileNav.value = !mobileNav.value;
-  };
-
-  const checkWidth = () => {
-    windowWidth.value = window.innerWidth;
-    if (windowWidth.value <= 720) {
-      mobile.value = true;
-    } else {
-      mobile.value = false;
-      mobileNav.value = false;
-    }
-  };
-
-  onMounted(() => {
-    window.addEventListener('resize', checkWidth);
-    checkWidth();
-  });
+  import { useBreakpoints } from '@vueuse/core'
+  import { ref, watch } from 'vue';
 
   const emit = defineEmits(['adToggle'])
 
-  </script>
+  const breakpoints = useBreakpoints({
+    mobile: 720,
+    tablet: 1200,
+  })
+
+  const mobile = breakpoints.smallerOrEqual('mobile');
+  // const tablet = breakpoints.between('mobile', 'tablet');
+  // const desktop = breakpoints.greaterOrEqual('tablet');
+
+  // const mobile = ref(null);
+  const mobileNav = ref(false);
+  // const windowWidth = ref(null);
+
+  const toggleMobileNav = () => {
+    mobileNav.value = !mobileNav.value;
+    console.log("test")
+  };
+
+  // const checkWidth = () => {
+  //   windowWidth.value = window.innerWidth;
+  //   if (windowWidth.value <= 720) {
+  //     mobile.value = true;
+  //   } else {
+  //     mobile.value = false;
+  //     mobileNav.value = false;
+  //   }
+  // };
+
+  // onMounted(() => {
+  //   window.addEventListener('resize', checkWidth);
+  //   checkWidth();
+  // });
+
+
+  watch(mobile, () => {
+    if (!mobile.value) mobileNav.value = false;
+  })
+
+</script>
 
 <template>
     <ul v-show="!mobile" class="main_menu">
@@ -41,47 +56,13 @@
       <ButtonHamburger @click="toggleMobileNav" v-show="mobile" :class="{'icon-active' : mobileNav}" />
     </div>
     <transition name="mobile-nav">
-      <ul v-show="mobileNav" class="side_menu">
+      <ul v-show="mobileNav && mobile" class="side_menu">
         <li class="side__li m-top-90"><ButtonItem>button 1</ButtonItem></li>
         <li class="side__li"><ButtonItem>button 2</ButtonItem></li>
         <li class="side__li"><ButtonItem>button 3</ButtonItem></li>
       </ul>
     </transition>
 </template>
-
-<!-- <script>
-  export default {
-    data() {
-      return {
-        mobile: null,
-        mobileNav: null,
-        windowWidth: null,
-      }
-    },
-    created() {
-      window.addEventListener("resize", this.checkWidth);
-      this.checkWidth();
-    },
-    methods: {
-      toggleMobileNav() {
-        this.mobileNav = !this.mobileNav;
-      },
-
-      checkWidth() {
-        this.windowWidth = window.innerWidth;
-        if (this.windowWidth <= 720) {
-          this.mobile = true;
-          return;
-        }
-        this.mobile = false;
-        this.mobileNav = false;
-        return;
-      }
-    }
-  }
-</script> -->
-
-
 
 <style lang="scss" scoped>
   .ul__li {
@@ -135,7 +116,7 @@
 
   .mobile-nav-enter-active,
   .mobile-nav-leave-active {
-    transition: 1s ease all;
+    transition: 0.5s ease all;
   }
 
   .mobile-nav-enter-from,

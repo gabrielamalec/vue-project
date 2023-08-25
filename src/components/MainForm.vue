@@ -1,29 +1,25 @@
 <script setup>
 import { ref, computed } from 'vue';
-
+import { useNow, useDateFormat } from '@vueuse/core'
+const emit = defineEmits(['sendData']);
 
 const email = ref('')
 const name = ref('')
 const errors = ref([])
-const date = ref('')
+// const date = ref('')
 const description = ref('')
-
-const formData = ref({
-    email: '',
-    name: '',
-    errors: [],
-    date: '',
-    description: ''
-});
+const formData = ref({})
+const date = useDateFormat(useNow(), 'YYYY-MM-DD HH:mm')
 
 const submitForm = () => {
     formData.value = {
-    email: email.value,
-    name: name.value,
-    errors: errors.value,
-    date: date.value,
-    description: description.value
+        email: email,
+        name: name,
+        errors: errors,
+        date: date,
+        description: description
     }
+    emit("sendData", formData.value)
 }
 
 const formattedName = computed({
@@ -33,12 +29,11 @@ const formattedName = computed({
   },
 });
 
-const emit = defineEmits(['sendData']);
 
 </script>
 
 <template>
-    <form class="d-form">
+    <form @submit.prevent="submitForm" class="d-form">
         <label for="email">E-mail:</label>
         <input v-model="email" type="email" id="email" />
         <label for="name">Name:</label>
@@ -55,7 +50,7 @@ const emit = defineEmits(['sendData']);
         <label for="description">Description of the issue</label>
         <textarea v-model="description" id="description"/>
         <button type="reset">Reset form</button>
-        <button @click="submitForm(); emit(sendData, formData)">Send form</button>
+        <button>Send form</button>
     </form>
         
 </template>

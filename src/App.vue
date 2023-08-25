@@ -7,8 +7,17 @@ import NavigationMenu from './components/NavigationMenu.vue'
 import AdImage from './components/AdImage.vue'
 import MainForm from './components/MainForm.vue'
 import ToggleForm from './components/ToggleForm.vue'
+import { useBreakpoints } from '@vueuse/core'
+import { ref, watch } from 'vue';
 
-import { ref } from 'vue';
+const breakpoints = useBreakpoints({
+    mobile: 720,
+    tablet: 1200,
+  })
+
+const mobile = breakpoints.smallerOrEqual('mobile');
+const desktop = breakpoints.greaterOrEqual('tablet');
+
 
 const adVisibility = ref('hidden');
 const formVisibility = ref(false);
@@ -21,17 +30,22 @@ const toggleImageVisibility = () => {
   }
 };
 
+watch(desktop, () => {
+  if (!desktop.value) adVisibility.value = 'hidden';
+})
+
 const toggleFormVisibility = (value) => {
   formVisibility.value = value;
-  console.log("test")
 };
 
-const jsonData = ref(null);
+watch(mobile, () => {
+  if (mobile.value) formVisibility.value = false;
+})
 
 const handleFormSubmitted = (data) => {
-  jsonData.value = data;
   console.log(JSON.stringify(data))
 };
+
 
 </script>
 
@@ -43,14 +57,21 @@ const handleFormSubmitted = (data) => {
 
   <main>
     <SectionImages>
-      <ImageBeach class="cent-1"></ImageBeach>
-      <ImageBeach class="cent-2"></ImageBeach>
+      <div class="d-center">
+        <ImageBeach class="cent-1"></ImageBeach>
+        <ImageBeach class="cent-2"></ImageBeach>
+      </div>
+      <ToggleForm @show-form="toggleFormVisibility"/>
+      <MainForm v-show="formVisibility" @send-data="handleFormSubmitted"/>
     </SectionImages>
-    <ToggleForm @show-form="toggleFormVisibility"/>
-    <MainForm v-show="formVisibility" @send-data="handleFormSubmitted"/>
   </main>
   <AdImage :style="{ visibility: adVisibility }" />
 </template>
 
-<style>
+<style lang="scss" scoped>
+  .d-center {
+    display: flex;
+    justify-content: center;
+  }
+
 </style>
