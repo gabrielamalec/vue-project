@@ -7,22 +7,15 @@ import NavigationMenu from './components/NavigationMenu.vue'
 import AdImage from './components/AdImage.vue'
 import MainForm from './components/MainForm.vue'
 import ToggleForm from './components/ToggleForm.vue'
-import { useBreakpoints } from '@vueuse/core'
 import { ref, watch } from 'vue';
-
-const breakpoints = useBreakpoints({
-    mobile: 720,
-    tablet: 1200,
-  })
-
-const mobile = breakpoints.smallerOrEqual('mobile');
-const desktop = breakpoints.greaterOrEqual('tablet');
+import { useBreaks } from './composables/useBreaks.js';
 
 
+const { mobile, desktop } = useBreaks();
 const adVisibility = ref('hidden');
 const formVisibility = ref(false);
 
-const toggleImageVisibility = () => {
+const toggleAdVisibility = () => {
   if (adVisibility.value === 'hidden') {
     adVisibility.value = 'visible';
   } else {
@@ -34,25 +27,20 @@ watch(desktop, () => {
   if (!desktop.value) adVisibility.value = 'hidden';
 })
 
-const toggleFormVisibility = (value) => {
-  formVisibility.value = value;
-};
-
 watch(mobile, () => {
   if (mobile.value) formVisibility.value = false;
 })
 
-const handleFormSubmitted = (data) => {
-  console.log(JSON.stringify(data))
-};
-
+watch(desktop, () => {
+  if (desktop.value) formVisibility.value = true;
+})
 
 </script>
 
 <template>
   <header>
     <HeaderTitle>LOGO TEXT</HeaderTitle>
-    <NavigationMenu @ad-toggle="toggleImageVisibility" />
+    <NavigationMenu @ad-toggle="toggleAdVisibility"/>
   </header>
 
   <main>
@@ -61,8 +49,8 @@ const handleFormSubmitted = (data) => {
         <ImageBeach class="cent-1"></ImageBeach>
         <ImageBeach class="cent-2"></ImageBeach>
       </div>
-      <ToggleForm @show-form="toggleFormVisibility"/>
-      <MainForm v-show="formVisibility" @send-data="handleFormSubmitted"/>
+      <ToggleForm @show-form= "(value) => { formVisibility = value }" />
+      <MainForm v-show="formVisibility" @send-data="(data) => { console.log(JSON.stringify(data)) }" />
     </SectionImages>
   </main>
   <AdImage :style="{ visibility: adVisibility }" />

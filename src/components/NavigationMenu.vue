@@ -1,44 +1,12 @@
 <script setup>
   import ButtonItem from './ButtonItem.vue'
   import ButtonHamburger from './ButtonHamburger.vue'
-  import { useBreakpoints } from '@vueuse/core'
   import { ref, watch } from 'vue';
+  import { useBreaks } from '../composables/useBreaks.js';
 
-  const emit = defineEmits(['adToggle'])
-
-  const breakpoints = useBreakpoints({
-    mobile: 720,
-    tablet: 1200,
-  })
-
-  const mobile = breakpoints.smallerOrEqual('mobile');
-  // const tablet = breakpoints.between('mobile', 'tablet');
-  // const desktop = breakpoints.greaterOrEqual('tablet');
-
-  // const mobile = ref(null);
+  const emit = defineEmits(['adToggle'])  
+  const { mobile } = useBreaks();
   const mobileNav = ref(false);
-  // const windowWidth = ref(null);
-
-  const toggleMobileNav = () => {
-    mobileNav.value = !mobileNav.value;
-    console.log("test")
-  };
-
-  // const checkWidth = () => {
-  //   windowWidth.value = window.innerWidth;
-  //   if (windowWidth.value <= 720) {
-  //     mobile.value = true;
-  //   } else {
-  //     mobile.value = false;
-  //     mobileNav.value = false;
-  //   }
-  // };
-
-  // onMounted(() => {
-  //   window.addEventListener('resize', checkWidth);
-  //   checkWidth();
-  // });
-
 
   watch(mobile, () => {
     if (!mobile.value) mobileNav.value = false;
@@ -53,7 +21,7 @@
       <li class="ul__li ul__li--button3"><ButtonItem>button 3</ButtonItem></li>
     </ul>
     <div class="hamburger-posit">
-      <ButtonHamburger @click="toggleMobileNav" v-show="mobile" :class="{'icon-active' : mobileNav}" />
+      <ButtonHamburger @click="mobileNav = !mobileNav" v-show="mobile" :class="{'icon-active' : mobileNav}" />
     </div>
     <transition name="mobile-nav">
       <ul v-show="mobileNav && mobile" class="side_menu">

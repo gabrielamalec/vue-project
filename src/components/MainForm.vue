@@ -1,23 +1,24 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { useNow, useDateFormat } from '@vueuse/core'
+import { useDateFormat } from '@vueuse/core'
 const emit = defineEmits(['sendData']);
 
 const email = ref('')
 const name = ref('')
 const errors = ref([])
-// const date = ref('')
 const description = ref('')
 const formData = ref({})
-const date = useDateFormat(useNow(), 'YYYY-MM-DD HH:mm')
+const date = ref(new Date())
+const formattedInternalDate = useDateFormat(date, 'YYYY-MM-DD HH:mm')
+
 
 const submitForm = () => {
     formData.value = {
-        email: email,
-        name: name,
-        errors: errors,
-        date: date,
-        description: description
+        email: email.value,
+        name: name.value,
+        errors: errors.value,
+        date: formattedDate.value,
+        description: description.value
     }
     emit("sendData", formData.value)
 }
@@ -29,6 +30,12 @@ const formattedName = computed({
   },
 });
 
+const formattedDate = computed({
+    get: () => formattedInternalDate.value,
+    set(newValue) {
+        date.value = newValue
+    }
+})
 
 </script>
 
@@ -46,7 +53,7 @@ const formattedName = computed({
             <label for="other">Other</label>
         </fieldset>
         <label for="date">Date: </label>
-        <input v-model="date" type="datetime-local" id="date"/>
+        <input v-model="formattedDate" type="datetime-local" id="date"/>
         <label for="description">Description of the issue</label>
         <textarea v-model="description" id="description"/>
         <button type="reset">Reset form</button>
